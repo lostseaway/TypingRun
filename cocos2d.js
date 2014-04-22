@@ -17,7 +17,9 @@
             'src/MappingKey.js',
             'src/WordGen.js',
             'src/word.js',
-            'src/LabelContorll.js'
+            'src/LabelContorll.js',
+            'src/Stage.js',
+            'src/Player.js'
             // 'src/BackgroundLayer.js',
             // 'src/MainCharacter.js',
             // 'src/Stage1.js',
