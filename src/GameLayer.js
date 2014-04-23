@@ -6,7 +6,7 @@ var GameLayer = cc.LayerColor.extend({
         this.keymap = new MappingKey();
         
 
- 		this.wordGen = new WordGen(0);
+ 		this.wordGen = new WordGen(1);
 
  		this.textLabel = new LabelContorll();
  		this.textLabel.setPosition(cc.p(300,400));
@@ -23,30 +23,33 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.player);
  		this.setKeyboardEnabled( true );
         
-        $(function() {
-            console.log("asdfasd");
-        });
+        // $(function() {
+        //     // console.log("asdfasd");
+        // });
         
         return true;
     },
     onKeyDown: function(e){
-        if(e==32) this.textLabel.setText(this.wordGen.getWord().toLowerCase());
+        if(e==16) {
+            this.stage.started = true;
+            this.textLabel.setText(this.wordGen.getWord().toLowerCase());
+        }
         //jump
         else if(e==16){
             // console.log(this.textLabel.isComplet());
             if(this.textLabel.isComplet())this.textLabel.setText(this.wordGen.getWord().toLowerCase());
         }
         //slide
-        else if(e == 13){
+        else if(e == 32 || e== 13){
             if(this.textLabel.isComplet()){
                 this.textLabel.setText(this.wordGen.getWord().toLowerCase());
                 this.player.jump();
             }
         }
         else{
-        	console.log(this.textLabel.checkTypeIn(this.keymap.getKey(e)));
+        	this.textLabel.checkTypeIn(this.keymap.getKey(e));
         }
-        console.log(e);
+        // console.log(e);
     },
     onKeyUp: function(e){
         // console.log("UP : "+e);

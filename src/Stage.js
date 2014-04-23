@@ -4,6 +4,9 @@ var Stage = cc.Node.extend({
 		this.floor = [];
 		this.obs = [];
 		this.v = 4;
+		this.started = false;
+		this.passed = 0;
+		this.hold = 0;
 		this.initFloor();
 	},
 
@@ -11,10 +14,14 @@ var Stage = cc.Node.extend({
 		
 		var pos = this.getPosition();
 		var floorPos = this.floor[0].getBoundingBoxToWorld();
+		if(this.started){
+			this.addObs();
+		}
 		if(floorPos.x<-70){
 			this.floor[0].removeFromParent(true);
 			this.floor.splice( 0, 1 );
 			this.addBox();
+			if(this.hold!=0) this.hold=0;
 		}
 		// console.log("1x:"+floorPos.x);
 		this.setPosition(cc.p(pos.x-this.v,pos.y));
@@ -33,7 +40,7 @@ var Stage = cc.Node.extend({
 		var lastBoxPos = this.floor[this.floor.length-1].getPosition().x;
 		var floor = cc.Sprite.create( 'img/ground.png' );
 		this.floor.push(floor);
-		floor.setPosition(cc.p(lastBoxPos+70,30));
+		floor.setPosition(cc.p((lastBoxPos+70)+this.hold,30));
 		this.addChild(floor);
 	},
 
@@ -46,6 +53,11 @@ var Stage = cc.Node.extend({
 	},
 
 	addObs: function(){
-
+		var ran = Math.round(Math.random()*1000);
+		// console.log(ran);
+		if(ran<10){
+			// console.log("in");
+			this.hold = 140;
+		}
 	}
 });
