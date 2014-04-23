@@ -1,6 +1,7 @@
 var g_resources = [
 	{src: "img/ground.png"},
-	{src: "img/mainChar.png"}
+	{src: "img/mainChar.png"},
+	{src: "img/obs_low.png"}
 	// {src: "img/cerby_l1.png"},
 	// {src: "img/cerby_l2.png"},
 	// {src: "img/cerby_l3.png"},

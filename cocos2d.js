@@ -19,7 +19,8 @@
             'src/word.js',
             'src/LabelContorll.js',
             'src/Stage.js',
-            'src/Player.js'
+            'src/Player.js',
+            'src/jquery.min.js'
             // 'src/BackgroundLayer.js',
             // 'src/MainCharacter.js',
             // 'src/Stage1.js',

@@ -21,7 +21,7 @@ var Player = cc.Sprite.extend({
 	jump: function(){
 		if(this.status == 0 || this.status == 1){
 			var pos = this.getPosition();
-			this.setPosition(cc.p(pos.x,pos.y+50));
+			this.setPosition(cc.p(pos.x,pos.y+100));
 			this.g = -15;
 			this.status++;
 		}

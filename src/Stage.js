@@ -1,7 +1,8 @@
 var Stage = cc.Node.extend({
 	ctor:function(){
 		this._super();
-		this.floor = []
+		this.floor = [];
+		this.obs = [];
 		this.v = 4;
 		this.initFloor();
 	},
@@ -42,5 +43,9 @@ var Stage = cc.Node.extend({
 			if(cc.rectOverlapsRect( obj, boxBB ))return true;
 		}
 		return false;
+	},
+
+	addObs: function(){
+
 	}
 });

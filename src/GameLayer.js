@@ -22,6 +22,11 @@ var GameLayer = cc.LayerColor.extend({
         this.player.scheduleUpdate();
         this.addChild(this.player);
  		this.setKeyboardEnabled( true );
+        
+        $(function() {
+            console.log("asdfasd");
+        });
+        
         return true;
     },
     onKeyDown: function(e){
