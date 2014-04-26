@@ -23,6 +23,13 @@ var Stage = cc.Node.extend({
 			this.addBox();
 			if(this.hold!=0) this.hold=0;
 		}
+		if(this.obs.length!=0){
+			var obsPos = this.obs[0].getBoundingBoxToWorld();
+			if(obsPos.x <-70){
+				this.obs[0].removeFromParent(true);
+				this.obs.splice( 0, 1 );
+			}
+		}
 		// console.log("1x:"+floorPos.x);
 		this.setPosition(cc.p(pos.x-this.v,pos.y));
 	},
@@ -51,13 +58,35 @@ var Stage = cc.Node.extend({
 		}
 		return false;
 	},
+	checkHitObs: function(obj){
+		for(var i = 0;i<this.obs.length;i++){
+			var boxBB = this.obs[i].getBoundingBoxToWorld();
+			if(cc.rectOverlapsRect(obj,boxBB))return true;
+		}
+		return false;
+	},
 
 	addObs: function(){
 		var ran = Math.round(Math.random()*1000);
 		// console.log(ran);
-		if(ran<10){
+		if(ran<=5){
 			// console.log("in");
 			this.hold = 140;
+		}
+		else if(ran<=10){
+			var lastPos = this.floor[this.floor.length-1].getPosition().x;
+			
+			if(this.obs.length!=0){
+				var lastObs = this.obs[this.obs.length-1].getPosition().x;
+				if(Math.abs(lastPos-lastObs)<=280)return;
+			}
+
+			var lowObs = cc.Sprite.create('img/obs_low.png');
+			
+			lowObs.setPosition(cc.p(lastPos,100));
+			this.addChild(lowObs);
+			this.obs.push(lowObs);
+
 		}
 	}
 });

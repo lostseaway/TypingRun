@@ -50,7 +50,7 @@ var LabelContorll = cc.Node.extend({
 	},
 
 	isComplet :function(){
-		console.log("word length : "+(this.word.length)+" windex : "+this.wIndex);
+		// console.log("word length : "+(this.word.length)+" windex : "+this.wIndex);
 		if(this.word.length == this.wIndex)return true;
 		return false;
 	}

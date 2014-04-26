@@ -6,7 +6,7 @@ var GameLayer = cc.LayerColor.extend({
         this.keymap = new MappingKey();
         
 
- 		this.wordGen = new WordGen(1);
+ 		this.wordGen = new WordGen(0);
 
  		this.textLabel = new LabelContorll();
  		this.textLabel.setPosition(cc.p(300,400));
