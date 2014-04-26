@@ -7,6 +7,8 @@ var Player = cc.Sprite.extend({
 		this.isHit = false;
 		this.status = 0;
 		this.sHit = 0;
+		this.maxHP = 100;
+		this.HP = 100;
 	},
 	update: function(dt){
 		var box = this.getBoundingBoxToWorld();
@@ -28,6 +30,7 @@ var Player = cc.Sprite.extend({
 			this.isHit = true;
 			this.sHit = new Date() / 1000;
 			console.log("HIT!");
+			this.attacked(10);
 		}
 		else{
 			this.status = 0;
@@ -40,5 +43,15 @@ var Player = cc.Sprite.extend({
 			this.g = -15;
 			this.status++;
 		}
+	},
+
+	setHealthBar: function( healthBar ) {
+		this.healthBar = healthBar;
+	},
+
+	attacked : function(damage){
+		this.HP -= damage;
+		// console.log(this.HP/this.maxHP);
+		this.healthBar.setHP((this.HP/this.maxHP)*100);
 	}
 });

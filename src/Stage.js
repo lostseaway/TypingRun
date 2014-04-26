@@ -7,6 +7,7 @@ var Stage = cc.Node.extend({
 		this.started = false;
 		this.passed = 0;
 		this.hold = 0;
+
 		this.initFloor();
 	},
 
@@ -16,6 +17,7 @@ var Stage = cc.Node.extend({
 		var floorPos = this.floor[0].getBoundingBoxToWorld();
 		if(this.started){
 			this.addObs();
+			this.getParent().bg.scheduleUpdate();
 		}
 		if(floorPos.x<-70){
 			this.floor[0].removeFromParent(true);

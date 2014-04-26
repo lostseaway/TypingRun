@@ -8,6 +8,10 @@ var GameLayer = cc.LayerColor.extend({
 
  		this.wordGen = new WordGen(0);
 
+        this.bg = new BackgroundLayer();
+        this.addChild(this.bg);
+        // this.bg.scheduleUpdate();
+
  		this.textLabel = new LabelContorll();
  		this.textLabel.setPosition(cc.p(300,400));
  		this.addChild(this.textLabel);
@@ -22,6 +26,12 @@ var GameLayer = cc.LayerColor.extend({
         this.player.scheduleUpdate();
         this.addChild(this.player);
  		this.setKeyboardEnabled( true );
+
+        this.playerhealth = new PlayerHealthBar();
+        this.playerhealth.setPosition(cc.p(30,550));
+        this.addChild(this.playerhealth);
+
+        this.player.setHealthBar(this.playerhealth);
         
         // $(function() {
         //     // console.log("asdfasd");

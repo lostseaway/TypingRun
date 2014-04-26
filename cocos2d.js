@@ -20,15 +20,15 @@
             'src/LabelContorll.js',
             'src/Stage.js',
             'src/Player.js',
-            'src/jquery.min.js'
-            // 'src/BackgroundLayer.js',
+            'src/jquery.min.js',
+            'src/BackgroundLayer.js',
             // 'src/MainCharacter.js',
             // 'src/Stage1.js',
             // 'src/mainCharContorller.js',
             // 'src/enemy.js',
             // 'src/EnemyFactory.js',
             // 'src/EnemyHealthBar.js',
-            // 'src/PlayerHealthBar.js'    //add your own files in order here
+            'src/PlayerHealthBar.js'    //add your own files in order here
         ]
     };
 
