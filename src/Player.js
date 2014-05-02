@@ -25,10 +25,6 @@ var Player = cc.Sprite.extend({
 			}
 		}
 
-		// if(box.y<65){
-
-		// }
-
 		if(!this.floor.checkOnFloor(box) || box.y<65){
 			
 			if(this.floor.checkOnFloor(box)){
