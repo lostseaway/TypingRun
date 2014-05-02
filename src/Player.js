@@ -1,5 +1,5 @@
 var Player = cc.Sprite.extend({
-	ctor: function(floor){
+	ctor: function(floor,main){
 		this._super();
 		// this.initWithFile('img/mainChar.png');
 		this.standAction  = this.createStandAction();
@@ -12,6 +12,8 @@ var Player = cc.Sprite.extend({
 		this.maxHP = 100;
 		this.HP = 100;
 		this.setScale(0.5,0.5);
+		this.main = main;
+		
 	},
 	update: function(dt){
 		var box = this.getBoundingBoxToWorld();
@@ -46,6 +48,7 @@ var Player = cc.Sprite.extend({
 		}
 
 		if(this.floor.checkCollectCoin(box)){
+			this.main.scoring(1);
 			cc.AudioEngine.getInstance().playEffect( 'sound/coin.mp3' );
 		}
 		
@@ -56,7 +59,7 @@ var Player = cc.Sprite.extend({
 			var pos = this.getPosition();
 			this.setPosition(cc.p(pos.x,pos.y+150));
 			this.g = -15;
-			this.status++;
+			// this.status++;
 		}
 	},
 

@@ -3,6 +3,9 @@ var GameLayer = cc.LayerColor.extend({
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
 
+        
+
+
         this.keymap = new MappingKey();
         
 
@@ -21,7 +24,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.stage);
         this.stage.scheduleUpdate();
 
-        this.player = new Player(this.stage);
+        this.player = new Player(this.stage,this);
         this.player.setPosition(cc.p(70,200));
         this.player.scheduleUpdate();
         this.addChild(this.player);
@@ -33,6 +36,18 @@ var GameLayer = cc.LayerColor.extend({
 
         this.player.setHealthBar(this.playerhealth);
         
+        var coin = cc.Sprite.create( 'img/coin_top.png' );
+        coin.setPosition(cc.p(570,560));
+        coin.setScale(0.7,0.7);
+        this.addChild(coin);
+
+        this.score = 0;
+
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40);
+        this.scoreLabel.setPosition( new cc.Point( 680, 555 ) );
+        this.scoreLabel.setColor( cc.c3b( 0, 0, 0 ));
+        this.scoreLabel.setString("X 00000");
+        this.addChild(this.scoreLabel);
         // $(function() {
         //     // console.log("asdfasd");
         // });
@@ -67,6 +82,18 @@ var GameLayer = cc.LayerColor.extend({
     },
     onKeyUp: function(e){
         // console.log("UP : "+e);
+    },
+
+    scoring: function(p){
+        this.score+=p;
+        var tmp = ""
+        if(this.score < 10) tmp = "X 0000"+this.score;
+        else if(this.score < 100) tmp = "X 000"+this.score;
+        else if(this.score < 1000) tmp = "X 00"+this.score;
+        else if(this.score < 10000) tmp = "X 0"+this.score;
+        else if(this.score < 100000) tmp = "X "+this.score;
+
+        this.scoreLabel.setString(tmp);
     }
 });
 

@@ -123,14 +123,8 @@ var Stage = cc.Node.extend({
 			if(this.coins.length != 0){
 				if(this.coins[this.coins.length-1].getPosition().x == lastPos)return;
 			}
-			if(this.obs.length != 0){
-				var lastBox = this.obs[this.obs.length-1].getBoundingBox();
-				// console.log("Last Pos : " +lastPos);
-				// console.log("Last Obx : " + cc.rectGetMaxX(lastBox));
 
-				// if(lastPos <= this.obs[this.obs.length-1].getPosition().x + 100 && lastPos >= this.obs[this.obs.length-1].getPosition().x - 100 )return;
-			}
-			this.addCoin(lastPos,30);
+			this.addCoin(lastPos,50);
 		}
 	},
 
