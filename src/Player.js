@@ -50,7 +50,7 @@ var Player = cc.Sprite.extend({
 		}
 
 		if(this.floor.checkCollectCoin(box)){
-			// console.log("coin!");
+			cc.AudioEngine.getInstance().playEffect( 'sound/coin.mp3' );
 		}
 		
 	},

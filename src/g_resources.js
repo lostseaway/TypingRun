@@ -14,6 +14,8 @@ var g_resources = [
 	// {src: "img/mainChar_s4.jpg"},
 	{src: "img/enemy_bar_border.png"},
 	{src: "img/hp_green.png"},
-	{src: "img/sky.jpg"}
+	{src: "img/sky.jpg"},
+	{src: "sound/theme.mp3"},
+	{src: "sound/coin.m4a"}
 	// {src: "img/stage1_floor.png"},
 ];

@@ -46,6 +46,7 @@ var GameLayer = cc.LayerColor.extend({
         if(e==16) {
             this.stage.started = true;
             this.textLabel.setText(this.wordGen.getWord().toLowerCase());
+            cc.AudioEngine.getInstance().playMusic( 'sound/theme.mp3', true );
         }
         //jump
         else if(e==16){
