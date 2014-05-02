@@ -40,6 +40,9 @@ var GameLayer = cc.LayerColor.extend({
         return true;
     },
     onKeyDown: function(e){
+        if(e== 32){
+            console.log(this.player.getPosition().y);
+        }
         if(e==16) {
             this.stage.started = true;
             this.textLabel.setText(this.wordGen.getWord().toLowerCase());

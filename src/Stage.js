@@ -33,6 +33,7 @@ var Stage = cc.Node.extend({
 			}
 		}
 		// console.log("1x:"+floorPos.x);
+		this.v +=0.000001;
 		this.setPosition(cc.p(pos.x-this.v,pos.y));
 	},
 
