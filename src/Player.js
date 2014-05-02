@@ -48,6 +48,10 @@ var Player = cc.Sprite.extend({
 			console.log("HIT!");
 			this.attacked(10);
 		}
+
+		if(this.floor.checkCollectCoin(box)){
+			// console.log("coin!");
+		}
 		
 	},
 	jump: function(){

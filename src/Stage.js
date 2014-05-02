@@ -3,6 +3,7 @@ var Stage = cc.Node.extend({
 		this._super();
 		this.floor = [];
 		this.obs = [];
+		this.coins = [];
 		this.v = 4;
 		this.started = false;
 		this.passed = 0;
@@ -32,6 +33,13 @@ var Stage = cc.Node.extend({
 				this.obs.splice( 0, 1 );
 			}
 		}
+		if(this.coins.length!=0){
+			var coin = this.coins[0].getBoundingBoxToWorld();
+			if(coin.x <-70){
+				this.coins[0].removeFromParent(true);
+				this.coins.splice(0,1);
+			}
+		}
 		// console.log("1x:"+floorPos.x);
 		this.v +=0.000001;
 		this.setPosition(cc.p(pos.x-this.v,pos.y));
@@ -51,7 +59,15 @@ var Stage = cc.Node.extend({
 		var floor = cc.Sprite.create( 'img/ground.png' );
 		this.floor.push(floor);
 		floor.setPosition(cc.p((lastBoxPos+70)+this.hold,30));
+		// this.addCoin((lastBoxPos+70)+this.hold,30);
 		this.addChild(floor);
+	},
+
+	addCoin: function(x,y){
+		var coin = new Coin();
+		coin.setPosition(cc.p(x,y+100));
+		this.coins.push(coin);
+		this.addChild(coin);
 	},
 
 	checkOnFloor: function(obj){
@@ -65,6 +81,17 @@ var Stage = cc.Node.extend({
 		for(var i = 0;i<this.obs.length;i++){
 			var boxBB = this.obs[i].getBoundingBoxToWorld();
 			if(cc.rectOverlapsRect(obj,boxBB))return true;
+		}
+		return false;
+	},
+
+	checkCollectCoin: function(obj){
+		for(var i = 0 ;i<this.coins.length;i++){
+			var boxBB = this.coins[i].getBoundingBoxToWorld();
+			if(cc.rectOverlapsRect(obj,boxBB)){
+				this.coins[i].removeFromParent(true);
+				return true;
+			}
 		}
 		return false;
 	},
@@ -91,5 +118,21 @@ var Stage = cc.Node.extend({
 			this.obs.push(lowObs);
 
 		}
-	}
+		else{
+			var lastPos = this.floor[this.floor.length-1].getPosition().x;
+			if(this.coins.length != 0){
+				if(this.coins[this.coins.length-1].getPosition().x == lastPos)return;
+			}
+			if(this.obs.length != 0){
+				var lastBox = this.obs[this.obs.length-1].getBoundingBox();
+				// console.log("Last Pos : " +lastPos);
+				// console.log("Last Obx : " + cc.rectGetMaxX(lastBox));
+
+				// if(lastPos <= this.obs[this.obs.length-1].getPosition().x + 100 && lastPos >= this.obs[this.obs.length-1].getPosition().x - 100 )return;
+			}
+			this.addCoin(lastPos,30);
+		}
+	},
+
+	
 });

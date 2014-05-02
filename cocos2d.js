@@ -22,6 +22,7 @@
             'src/Player.js',
             'src/jquery.min.js',
             'src/BackgroundLayer.js',
+            'src/Coin.js',
             // 'src/MainCharacter.js',
             // 'src/Stage1.js',
             // 'src/mainCharContorller.js',
