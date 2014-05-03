@@ -94,6 +94,12 @@ var GameLayer = cc.LayerColor.extend({
         else if(this.score < 100000) tmp = "X "+this.score;
 
         this.scoreLabel.setString(tmp);
+    },
+
+    endGame: function(){
+        this.bg.unscheduleUpdate();
+        var menu = confirm("You're Dead. Your score is"+this.score+"! \n\"OK\" To Submit your score \"Cancel\" to Restart!");
+        if(!menu) location.reload();
     }
 });
 

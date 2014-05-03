@@ -27,12 +27,12 @@ var Player = cc.Sprite.extend({
 				this.isHit = false;
 			}
 		}
-		
+
 		//check died
 		if((box.x <-5 && box.y<-5)|| this.HP <=0 ){
 			cc.AudioEngine.end()
 			this.floor.unscheduleUpdate();
-			this.main.unscheduleUpdate();
+			this.main.endGame();
 			this.isAlive = false;
 		}
 
