@@ -13,6 +13,7 @@ var Player = cc.Sprite.extend({
 		this.HP = 100;
 		this.setScale(0.5,0.5);
 		this.main = main;
+		this.isAlive = true;
 		
 	},
 	update: function(dt){
@@ -25,6 +26,14 @@ var Player = cc.Sprite.extend({
 			if(time - this.sHit >= 5){
 				this.isHit = false;
 			}
+		}
+		
+		//check died
+		if((box.x <-5 && box.y<-5)|| this.HP <=0 ){
+			cc.AudioEngine.end()
+			this.floor.unscheduleUpdate();
+			this.main.unscheduleUpdate();
+			this.isAlive = false;
 		}
 
 		if(!this.floor.checkOnFloor(box) || box.y<65){
