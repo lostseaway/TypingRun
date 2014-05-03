@@ -96,7 +96,7 @@ var GameLayer = cc.LayerColor.extend({
             var name = prompt("Please enter your name","");
             // alert("Hello "+name+" your score is "+this.score);
             this.postScore(name);
-            // location.reload();
+            location.reload();
         }
     },
 

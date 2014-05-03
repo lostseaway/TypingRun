@@ -1,3 +1,4 @@
+<?php include('src/config.php') ?>
 <html>
 <head>
     <meta charset="utf-8">
@@ -23,7 +24,98 @@
     <script src="js/bootstrap.js"></script>
 </head>
 <body style="padding:0; margin: 0; background: #000;">
-<canvas id="gameCanvas" width="800" height="600"></canvas>
-<script src="cocos2d.js"></script>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script src="cocos2d.js"></script>
+    <div class = "container">
+        <div class = "row">
+           <br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                     <h3 class="panel-title">LeaderBoard</h3>
+                 </div>
+                 <div class="panel-body">
+                    <div class="row">
+                        <div class = "col-md-1">
+                            <h3>Level : Easy</h3><br>
+                            <table class = "table">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Score</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $query = 'SELECT name,score,level FROM score WHERE level = 0 ORDER BY score DESC';
+                                        $i = 1;
+                                        $sql = mysql_query($query);
+                                        while($data=mysql_fetch_array($sql)){
+                                            echo "<tr>";
+                                            echo "<td>".$i."</td>";
+                                            echo "<td>".$data["name"]."</td>";
+                                            echo "<td>".$data["score"]."</td>";
+                                            echo "</tr>";
+                                            $i++;
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                            <br>
+                        </div>
+                        <div class = "col-md-1">
+                        <h3>Level : Normal</h3><br>
+                            <table class = "table">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Score</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $query = 'SELECT name,score,level FROM score WHERE level = 1 ORDER BY score DESC';
+                                        $i = 1;
+                                        $sql = mysql_query($query);
+                                        while($data=mysql_fetch_array($sql)){
+                                            echo "<tr>";
+                                            echo "<td>".$i."</td>";
+                                            echo "<td>".$data["name"]."</td>";
+                                            echo "<td>".$data["score"]."</td>";
+                                            echo "</tr>";
+                                            $i++;
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                            <br>
+                        </div>
+                        <div class = "col-md-1">
+                        <h3>Level : Hard</h3><br>
+                            <table class = "table">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Score</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $query = 'SELECT name,score,level FROM score WHERE level = 2 ORDER BY score DESC';
+                                        $i = 1;
+                                        $sql = mysql_query($query);
+                                        while($data=mysql_fetch_array($sql)){
+                                            echo "<tr>";
+                                            echo "<td>".$i."</td>";
+                                            echo "<td>".$data["name"]."</td>";
+                                            echo "<td>".$data["score"]."</td>";
+                                            echo "</tr>";
+                                            $i++;
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
