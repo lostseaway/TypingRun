@@ -35,7 +35,7 @@
                  </div>
                  <div class="panel-body">
                     <div class="row">
-                        <div class = "col-md-1">
+                        <div class = "col-md-4">
                             <h3>Level : Easy</h3><br>
                             <table class = "table">
                                 <thead>
@@ -49,6 +49,7 @@
                                         $i = 1;
                                         $sql = mysql_query($query);
                                         while($data=mysql_fetch_array($sql)){
+                                            if($i==6)break;
                                             echo "<tr>";
                                             echo "<td>".$i."</td>";
                                             echo "<td>".$data["name"]."</td>";
@@ -61,7 +62,7 @@
                             </table>
                             <br>
                         </div>
-                        <div class = "col-md-1">
+                        <div class = "col-md-4">
                         <h3>Level : Normal</h3><br>
                             <table class = "table">
                                 <thead>
@@ -75,6 +76,7 @@
                                         $i = 1;
                                         $sql = mysql_query($query);
                                         while($data=mysql_fetch_array($sql)){
+                                            if($i==6)break;
                                             echo "<tr>";
                                             echo "<td>".$i."</td>";
                                             echo "<td>".$data["name"]."</td>";
@@ -87,7 +89,7 @@
                             </table>
                             <br>
                         </div>
-                        <div class = "col-md-1">
+                        <div class = "col-md-4">
                         <h3>Level : Hard</h3><br>
                             <table class = "table">
                                 <thead>
@@ -101,6 +103,7 @@
                                         $i = 1;
                                         $sql = mysql_query($query);
                                         while($data=mysql_fetch_array($sql)){
+                                            if($i==6)break;
                                             echo "<tr>";
                                             echo "<td>".$i."</td>";
                                             echo "<td>".$data["name"]."</td>";

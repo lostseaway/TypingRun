@@ -9,7 +9,7 @@ var GameLayer = cc.LayerColor.extend({
         this.keymap = new MappingKey();
         
 
- 		this.wordGen = new WordGen(this.level);
+ 		// this.wordGen = new WordGen(this.level);
 
         this.bg = new BackgroundLayer();
         this.addChild(this.bg);
@@ -48,10 +48,8 @@ var GameLayer = cc.LayerColor.extend({
         this.scoreLabel.setColor( cc.c3b( 0, 0, 0 ));
         this.scoreLabel.setString("X 00000");
         this.addChild(this.scoreLabel);
-        // $(function() {
-        //     // console.log("asdfasd");
-        // });
-        
+       
+        this.setDiff();
         return true;
     },
     onKeyDown: function(e){
@@ -61,14 +59,16 @@ var GameLayer = cc.LayerColor.extend({
             cc.AudioEngine.getInstance().playMusic( 'sound/theme.mp3', true );
         }
         //slide
-        else if(e == 32 || e== 13){
-            if(this.textLabel.isComplet()){
-                this.textLabel.setText(this.wordGen.getWord().toLowerCase());
-                this.player.jump();
+        if(this.stage.started){
+            if(e == 32 || e== 13){
+                if(this.textLabel.isComplet()){
+                    this.textLabel.setText(this.wordGen.getWord().toLowerCase());
+                    this.player.jump();
+                }
             }
-        }
-        else{
-        	this.textLabel.checkTypeIn(this.keymap.getKey(e));
+            else{
+            	this.textLabel.checkTypeIn(this.keymap.getKey(e));
+            }
         }
         // console.log(e);
     },
@@ -94,17 +94,37 @@ var GameLayer = cc.LayerColor.extend({
         if(!menu) location.reload();
         else{
             var name = prompt("Please enter your name","");
+            // if(name == ""){
+            //     location.reload();
+            // }
             // alert("Hello "+name+" your score is "+this.score);
             this.postScore(name);
-            location.reload();
+            
         }
     },
 
     postScore: function(pName){
         $.post( "src/post_score.php", { name: pName, score: this.score ,level: this.level })
-            .always(function( data ) {
+        .done(function( data ) {
             alert(data);
+            location.reload();
          });
+    },
+
+    setDiff: function(){
+        while(true){
+            var diff = prompt("Select the difficaly.\n0 : Easy (<=40 wpm)\n1 : Normal (41-60 wpm)\n2 : Hard >60 wpm");
+
+            if(diff == 0 || diff == 1 || diff == 2){
+                var tmp = 0
+                if(diff == 1)tmp = 1;
+                if(diff == 2)tmp = 2;
+                this.level = tmp;
+                this.wordGen = new WordGen(this.level);
+                break;
+
+            }
+        }
     }
 });
 

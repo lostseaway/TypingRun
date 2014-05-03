@@ -41,7 +41,7 @@ var Stage = cc.Node.extend({
 			}
 		}
 		// console.log("1x:"+floorPos.x);
-		this.v +=0.000001;
+		this.v +=0.00001;
 		this.setPosition(cc.p(pos.x-this.v,pos.y));
 	},
 
@@ -99,11 +99,11 @@ var Stage = cc.Node.extend({
 	addObs: function(){
 		var ran = Math.round(Math.random()*1000);
 		// console.log(ran);
-		if(ran<=5){
+		if(ran<=10){
 			// console.log("in");
 			this.hold = 140;
 		}
-		else if(ran<=10){
+		else if(ran<=20){
 			var lastPos = this.floor[this.floor.length-1].getPosition().x;
 			
 			if(this.obs.length!=0){
