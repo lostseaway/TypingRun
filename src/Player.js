@@ -29,8 +29,9 @@ var Player = cc.Sprite.extend({
 		}
 
 		//check died
-		if((box.x <-5 && box.y<-5)|| this.HP <=0 ){
+		if((box.x <-50 && box.y<-50)|| this.HP <=0 ){
 			cc.AudioEngine.end()
+			this.unscheduleUpdate();
 			this.floor.unscheduleUpdate();
 			this.main.endGame();
 			this.isAlive = false;
@@ -52,7 +53,6 @@ var Player = cc.Sprite.extend({
 		if(this.floor.checkHitObs(box) && !this.isHit){
 			this.isHit = true;
 			this.sHit = new Date() / 1000;
-			console.log("HIT!");
 			this.attacked(10);
 		}
 

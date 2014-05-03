@@ -3,13 +3,13 @@ var GameLayer = cc.LayerColor.extend({
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
 
-        
+        this.level = 0;
 
 
         this.keymap = new MappingKey();
         
 
- 		this.wordGen = new WordGen(0);
+ 		this.wordGen = new WordGen(this.level);
 
         this.bg = new BackgroundLayer();
         this.addChild(this.bg);
@@ -55,18 +55,10 @@ var GameLayer = cc.LayerColor.extend({
         return true;
     },
     onKeyDown: function(e){
-        if(e== 32){
-            console.log(this.player.getPosition().y);
-        }
         if(e==16) {
             this.stage.started = true;
             this.textLabel.setText(this.wordGen.getWord().toLowerCase());
             cc.AudioEngine.getInstance().playMusic( 'sound/theme.mp3', true );
-        }
-        //jump
-        else if(e==16){
-            // console.log(this.textLabel.isComplet());
-            if(this.textLabel.isComplet())this.textLabel.setText(this.wordGen.getWord().toLowerCase());
         }
         //slide
         else if(e == 32 || e== 13){
@@ -98,8 +90,21 @@ var GameLayer = cc.LayerColor.extend({
 
     endGame: function(){
         this.bg.unscheduleUpdate();
-        var menu = confirm("You're Dead. Your score is"+this.score+"! \n\"OK\" To Submit your score \"Cancel\" to Restart!");
+        var menu = confirm("You're Dead. Your score is "+this.score+" ! \n\n\"OK\" To Submit your Score \n\"Cancel\" to Restart!");
         if(!menu) location.reload();
+        else{
+            var name = prompt("Please enter your name","");
+            // alert("Hello "+name+" your score is "+this.score);
+            this.postScore(name);
+            // location.reload();
+        }
+    },
+
+    postScore: function(pName){
+        $.post( "src/post_score.php", { name: pName, score: this.score ,level: this.level })
+            .always(function( data ) {
+            alert(data);
+         });
     }
 });
 
