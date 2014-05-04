@@ -7,7 +7,7 @@ var LabelContorll = cc.Node.extend({
         this.passed.setColor( cc.c3b( 200, 0, 0 ));
         this.passed.setAnchorPoint(cc.p(0,0));
         this.addChild( this.passed, 1);
-        this.passed.setString("Press Left Shift To START!");
+        this.passed.setString("");
 	
 		this.nonPass = cc.LabelTTF.create( '0', 'Arial', this.fontSize );
         this.nonPass.setPosition( new cc.Point( 0, 0 ) );

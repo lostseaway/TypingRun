@@ -4,10 +4,10 @@ var SelectLayer = cc.Layer.extend({
 		this._super();
 	},
 
-	init: function(){
+	init: function(sound){
 		this._super();
 		this.setMouseEnabled( true );
-		this.isSound = true;
+		this.isSound = sound;
 
 		var director = cc.Director.getInstance();
         var winsize = director.getWinSize();
@@ -32,7 +32,8 @@ var SelectLayer = cc.Layer.extend({
         this.butt3.setOpacity(80);
         this.addChild(this.butt3);
 
-        this.sound_butt = cc.Sprite.create( 'img/menu/sound.png' );
+        if(this.isSound) this.sound_butt = cc.Sprite.create( 'img/menu/sound.png' );
+        else this.sound_butt = cc.Sprite.create( 'img/menu/nsound.png' );
         this.sound_butt.setPosition(cc.p(30,30));
         this.sound_butt.setOpacity(80);
         // this.setAnchorPoint(0.5,0.5);
@@ -85,17 +86,17 @@ var SelectLayer = cc.Layer.extend({
 
 		if(cc.rectContainsPoint(b1,loc)){
 			var director = cc.Director.getInstance();
-        	director.replaceScene(cc.TransitionFade.create(1.5, new StartScene(0)));
+        	director.replaceScene(cc.TransitionFade.create(1.5, new StartScene(0,this.isSound)));
 		}
 
 		if(cc.rectContainsPoint(b2,loc)){
 			var director = cc.Director.getInstance();
-        	director.replaceScene(cc.TransitionFade.create(1.5, new StartScene(1)));
+        	director.replaceScene(cc.TransitionFade.create(1.5, new StartScene(1,this.isSound)));
 		}
 
 		if(cc.rectContainsPoint(b3,loc)){
 			var director = cc.Director.getInstance();
-        	director.replaceScene(cc.TransitionFade.create(1.5, new StartScene(2)));
+        	director.replaceScene(cc.TransitionFade.create(1.5, new StartScene(2,this.isSound)));
 		}
 
 		if(cc.rectContainsPoint(sb,loc)){
@@ -112,10 +113,10 @@ var SelectLayer = cc.Layer.extend({
 });
 
 var SelectScene = cc.Scene.extend({
-	ctor: function(){
+	ctor: function(sound){
 		this._super();
 		var layer = new SelectLayer();
-		layer.init();
+		layer.init(sound);
 		this.addChild( layer );
 	}
 });

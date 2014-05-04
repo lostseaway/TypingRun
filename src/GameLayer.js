@@ -1,9 +1,9 @@
 var GameLayer = cc.LayerColor.extend({
-    init: function(diff) {
+    init: function(diff,sound) {
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
-
-        console.log(diff);
+        this.isSound = sound;
+        // console.log(diff);
         this.isSound = true;
         this.level = 0;
 
@@ -13,7 +13,8 @@ var GameLayer = cc.LayerColor.extend({
         
         this.initGame();
  		
-
+        this.setMouseEnabled( true );
+        this.setKeyboardEnabled( true );
         
        
         this.setDiff(diff);
@@ -22,8 +23,12 @@ var GameLayer = cc.LayerColor.extend({
     onKeyDown: function(e){
         if(e==16 && !this.stage.started) {
             this.stage.started = true;
+            this.shif.removeFromParent(true);
             this.textLabel.setText(this.wordGen.getWord().toLowerCase());
-            // cc.AudioEngine.getInstance().playMusic( 'sound/theme.mp3', true );
+            
+            if(this.isSound){
+                cc.AudioEngine.getInstance().playMusic( 'sound/theme.mp3', true );
+            }
         }
         //slide
         if(this.stage.started){
@@ -37,11 +42,37 @@ var GameLayer = cc.LayerColor.extend({
             	this.textLabel.checkTypeIn(this.keymap.getKey(e));
             }
         }
-        console.log(e);
+        // console.log(e);
     },
-    onKeyUp: function(e){
-        // console.log("UP : "+e);
+    
+    onMouseMoved: function(event){
+        var loc = event.getLocation();
+        var sb = this.sound_butt.getBoundingBoxToWorld();
+
+        if(cc.rectContainsPoint(sb,loc)){
+            this.sound_butt.setOpacity(1000);
+        }else{
+            this.sound_butt.setOpacity(80);
+        }
     },
+
+    onMouseDown: function(event){
+        var loc = event.getLocation();
+        var sb = this.sound_butt.getBoundingBoxToWorld();
+        if(cc.rectContainsPoint(sb,loc)){
+            if(this.isSound){
+                this.isSound = false;
+                this.sound_butt.initWithFile("img/menu/nsound.png");
+                cc.AudioEngine.getInstance().stopMusic();
+            }
+            else{
+                this.isSound = true;
+                this.sound_butt.initWithFile("img/menu/sound.png");
+                cc.AudioEngine.getInstance().playMusic( 'sound/theme.mp3', true );
+            }
+        }
+    },
+
 
     scoring: function(p){
         this.score+=p;
@@ -58,7 +89,10 @@ var GameLayer = cc.LayerColor.extend({
     endGame: function(){
         this.bg.unscheduleUpdate();
         var menu = confirm("You're Dead. Your score is "+this.score+" ! \n\n\"OK\" To Submit your Score \n\"Cancel\" to Restart!");
-        if(!menu) location.reload();
+        if(!menu){
+            var director = cc.Director.getInstance();
+            director.replaceScene(cc.TransitionFade.create(1.5, new SelectScene(this.isSound)));
+        }
         else{
             var name = prompt("Please enter your name","Anonymous NyanCat");
             
@@ -66,7 +100,8 @@ var GameLayer = cc.LayerColor.extend({
                 this.postScore(name);
             }
             else{
-                location.reload();
+                var director = cc.Director.getInstance();
+                director.replaceScene(cc.TransitionFade.create(1.5, new SelectScene(this.isSound)));
             }
             
             
@@ -77,7 +112,8 @@ var GameLayer = cc.LayerColor.extend({
         $.post( "src/post_score.php", { name: pName, score: this.score ,level: this.level })
         .done(function( data ) {
             alert(data);
-            location.reload();
+            var director = cc.Director.getInstance();
+            director.replaceScene(cc.TransitionFade.create(1.5, new SelectScene(this.isSound)));
          });
     },
 
@@ -104,7 +140,8 @@ var GameLayer = cc.LayerColor.extend({
         this.player.setPosition(cc.p(70,200));
         this.player.scheduleUpdate();
         this.addChild(this.player);
-        this.setKeyboardEnabled( true );
+
+
 
         this.playerhealth = new PlayerHealthBar();
         this.playerhealth.setPosition(cc.p(30,550));
@@ -124,15 +161,39 @@ var GameLayer = cc.LayerColor.extend({
         this.scoreLabel.setColor( cc.c3b( 0, 0, 0 ));
         this.scoreLabel.setString("X 00000");
         this.addChild(this.scoreLabel);
+
+        if(this.isSound) this.sound_butt = cc.Sprite.create( 'img/menu/sound.png' );
+        else this.sound_butt = cc.Sprite.create( 'img/menu/nsound.png' );
+        this.sound_butt.setPosition(cc.p(30,30));
+        this.sound_butt.setOpacity(80);
+        this.sound_butt.setScaleX(0.08);
+        this.sound_butt.setScaleY(0.08);
+        this.addChild(this.sound_butt);
+
+        this.shif = cc.Sprite.create();
+
+        this.shif.createAction = function(){
+            var animation = new cc.Animation.create();
+            for (var i = 0 ; i<=1;i++){
+                animation.addSpriteFrameWithFile( 'img/menu/pressShift_'+i+'.png');
+            }
+            animation.setDelayPerUnit( 0.5 );
+            return cc.RepeatForever.create( cc.Animate.create( animation ) );
+        }
+
+        this.shif.runAction(this.shif.createAction());
+        this.shif.setPosition(cc.p(400,400));
+
+        this.addChild(this.shif);
     }
 });
 
 var StartScene = cc.Scene.extend({
-    ctor: function(diff){
-        console.log(diff);
+    ctor: function(diff,sound){
+        // console.log(diff);
         this._super();
         var layer = new GameLayer();
-        layer.init(diff);
+        layer.init(diff,sound);
         this.addChild( layer );
     }
 });

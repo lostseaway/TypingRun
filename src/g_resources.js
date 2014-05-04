@@ -15,8 +15,7 @@ var g_resources = [
 	{src: "img/enemy_bar_border.png"},
 	{src: "img/hp_green.png"},
 	{src: "img/sky.jpg"},
-	{src: "sound/theme.mp3"},
-	{src: "sound/coin.mp3"},
+	
 	{src: "img/coin/coin_1.png"},
 	{src: "img/coin/coin_2.png"},
 	{src: "img/coin/coin_3.png"},
@@ -42,7 +41,13 @@ var g_resources = [
 	{src: "img/menu/butt_med.png"},
 	{src: "img/menu/butt_hard.png"},
 	{src: "img/menu/sound.png"},
-	{src: "img/menu/nsound.png"}
+	{src: "img/menu/nsound.png"},
+	{src: "img/menu/pressShift_0.png"},
+	{src: "img/menu/pressShift_1.png"},
+
+	{src: "sound/theme.mp3"},
+	{src: "sound/coin.mp3"}
+
 
 	// {src: "img/stage1_floor.png"},
 ];
