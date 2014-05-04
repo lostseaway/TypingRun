@@ -30,7 +30,8 @@
             // 'src/EnemyFactory.js',
             // 'src/EnemyHealthBar.js',
             'src/PlayerHealthBar.js',
-            'src/MenuLayer.js'    //add your own files in order here
+            'src/MenuLayer.js',
+            'src/SelectLayer.js'    //add your own files in order here
         ]
     };
 

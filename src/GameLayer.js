@@ -1,8 +1,9 @@
 var GameLayer = cc.LayerColor.extend({
-    init: function() {
+    init: function(diff) {
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
 
+        console.log(diff);
         this.isSound = true;
         this.level = 0;
 
@@ -15,16 +16,11 @@ var GameLayer = cc.LayerColor.extend({
 
         
        
-        this.setDiff();
+        this.setDiff(diff);
         return true;
     },
     onKeyDown: function(e){
-        if(this.state==0){
-            if(e==32){
-
-            }
-        }
-        if(e==16) {
+        if(e==16 && !this.stage.started) {
             this.stage.started = true;
             this.textLabel.setText(this.wordGen.getWord().toLowerCase());
             // cc.AudioEngine.getInstance().playMusic( 'sound/theme.mp3', true );
@@ -132,10 +128,11 @@ var GameLayer = cc.LayerColor.extend({
 });
 
 var StartScene = cc.Scene.extend({
-    onEnter: function() {
+    ctor: function(diff){
+        console.log(diff);
         this._super();
         var layer = new GameLayer();
-        layer.init();
+        layer.init(diff);
         this.addChild( layer );
     }
 });
