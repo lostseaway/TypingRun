@@ -34,6 +34,8 @@ var g_resources = [
 	{src: "img/mainChar/main_8.png"},
 	{src: "img/mainChar/main_9.png"},
 	{src: "img/mainChar/main_10.png"},
-	{src: "img/coin_top.png"}
+	{src: "img/coin_top.png"},
+	{src: "img/menu/menu_0.png"},
+	{src: "img/menu/menu_1.png"}
 	// {src: "img/stage1_floor.png"},
 ];

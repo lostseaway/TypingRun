@@ -3,60 +3,31 @@ var GameLayer = cc.LayerColor.extend({
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
 
+        this.isSound = true;
         this.level = 0;
 
 
+        this.state = 0;
         this.keymap = new MappingKey();
         
+        this.initGame();
+ 		
 
- 		// this.wordGen = new WordGen(this.level);
-
-        this.bg = new BackgroundLayer();
-        this.addChild(this.bg);
-        // this.bg.scheduleUpdate();
-
- 		this.textLabel = new LabelContorll();
- 		this.textLabel.setPosition(cc.p(300,400));
- 		this.addChild(this.textLabel);
-
-        this.stage = new Stage();
-        this.stage.setPosition(cc.p(0,0));
-        this.addChild(this.stage);
-        this.stage.scheduleUpdate();
-
-        this.player = new Player(this.stage,this);
-        this.player.setPosition(cc.p(70,200));
-        this.player.scheduleUpdate();
-        this.addChild(this.player);
- 		this.setKeyboardEnabled( true );
-
-        this.playerhealth = new PlayerHealthBar();
-        this.playerhealth.setPosition(cc.p(30,550));
-        this.addChild(this.playerhealth);
-
-        this.player.setHealthBar(this.playerhealth);
         
-        var coin = cc.Sprite.create( 'img/coin_top.png' );
-        coin.setPosition(cc.p(570,560));
-        coin.setScale(0.7,0.7);
-        this.addChild(coin);
-
-        this.score = 0;
-
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40);
-        this.scoreLabel.setPosition( new cc.Point( 680, 555 ) );
-        this.scoreLabel.setColor( cc.c3b( 0, 0, 0 ));
-        this.scoreLabel.setString("X 00000");
-        this.addChild(this.scoreLabel);
        
         this.setDiff();
         return true;
     },
     onKeyDown: function(e){
+        if(this.state==0){
+            if(e==32){
+
+            }
+        }
         if(e==16) {
             this.stage.started = true;
             this.textLabel.setText(this.wordGen.getWord().toLowerCase());
-            cc.AudioEngine.getInstance().playMusic( 'sound/theme.mp3', true );
+            // cc.AudioEngine.getInstance().playMusic( 'sound/theme.mp3', true );
         }
         //slide
         if(this.stage.started){
@@ -70,7 +41,7 @@ var GameLayer = cc.LayerColor.extend({
             	this.textLabel.checkTypeIn(this.keymap.getKey(e));
             }
         }
-        // console.log(e);
+        console.log(e);
     },
     onKeyUp: function(e){
         // console.log("UP : "+e);
@@ -93,12 +64,15 @@ var GameLayer = cc.LayerColor.extend({
         var menu = confirm("You're Dead. Your score is "+this.score+" ! \n\n\"OK\" To Submit your Score \n\"Cancel\" to Restart!");
         if(!menu) location.reload();
         else{
-            var name = prompt("Please enter your name","");
-            // if(name == ""){
-            //     location.reload();
-            // }
-            // alert("Hello "+name+" your score is "+this.score);
-            this.postScore(name);
+            var name = prompt("Please enter your name","Anonymous NyanCat");
+            
+            if(name != null){
+                this.postScore(name);
+            }
+            else{
+                location.reload();
+            }
+            
             
         }
     },
@@ -111,20 +85,49 @@ var GameLayer = cc.LayerColor.extend({
          });
     },
 
-    setDiff: function(){
-        while(true){
-            var diff = prompt("Select the difficaly.\n0 : Easy (<=40 wpm)\n1 : Normal (41-60 wpm)\n2 : Hard >60 wpm");
+    setDiff: function(n){
+        this.level = n;
+        this.wordGen = new WordGen(this.level);
+    },
 
-            if(diff == 0 || diff == 1 || diff == 2){
-                var tmp = 0
-                if(diff == 1)tmp = 1;
-                if(diff == 2)tmp = 2;
-                this.level = tmp;
-                this.wordGen = new WordGen(this.level);
-                break;
+    initGame: function(){
+        this.bg = new BackgroundLayer();
+        this.addChild(this.bg);
+        
 
-            }
-        }
+        this.textLabel = new LabelContorll();
+        this.textLabel.setPosition(cc.p(300,400));
+        this.addChild(this.textLabel);
+
+        this.stage = new Stage();
+        this.stage.setPosition(cc.p(0,0));
+        this.addChild(this.stage);
+        this.stage.scheduleUpdate();
+
+        this.player = new Player(this.stage,this);
+        this.player.setPosition(cc.p(70,200));
+        this.player.scheduleUpdate();
+        this.addChild(this.player);
+        this.setKeyboardEnabled( true );
+
+        this.playerhealth = new PlayerHealthBar();
+        this.playerhealth.setPosition(cc.p(30,550));
+        this.addChild(this.playerhealth);
+
+        this.player.setHealthBar(this.playerhealth);
+        
+        var coin = cc.Sprite.create( 'img/coin_top.png' );
+        coin.setPosition(cc.p(570,560));
+        coin.setScale(0.7,0.7);
+        this.addChild(coin);
+
+        this.score = 0;
+
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40);
+        this.scoreLabel.setPosition( new cc.Point( 680, 555 ) );
+        this.scoreLabel.setColor( cc.c3b( 0, 0, 0 ));
+        this.scoreLabel.setString("X 00000");
+        this.addChild(this.scoreLabel);
     }
 });
 

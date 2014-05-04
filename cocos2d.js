@@ -29,7 +29,8 @@
             // 'src/enemy.js',
             // 'src/EnemyFactory.js',
             // 'src/EnemyHealthBar.js',
-            'src/PlayerHealthBar.js'    //add your own files in order here
+            'src/PlayerHealthBar.js',
+            'src/MenuLayer.js'    //add your own files in order here
         ]
     };
 

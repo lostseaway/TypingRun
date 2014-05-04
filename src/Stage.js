@@ -19,6 +19,7 @@ var Stage = cc.Node.extend({
 		if(this.started){
 			this.addObs();
 			this.getParent().bg.scheduleUpdate();
+			this.v +=0.00005;
 		}
 		if(floorPos.x<-70){
 			this.floor[0].removeFromParent(true);
@@ -41,7 +42,7 @@ var Stage = cc.Node.extend({
 			}
 		}
 		// console.log("1x:"+floorPos.x);
-		this.v +=0.00001;
+		
 		this.setPosition(cc.p(pos.x-this.v,pos.y));
 	},
 
