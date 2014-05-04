@@ -7,6 +7,7 @@ var SelectLayer = cc.Layer.extend({
 	init: function(){
 		this._super();
 		this.setMouseEnabled( true );
+		this.isSound = true;
 
 		var director = cc.Director.getInstance();
         var winsize = director.getWinSize();
@@ -30,6 +31,14 @@ var SelectLayer = cc.Layer.extend({
         this.butt3.setPosition(cc.p(665,360));
         this.butt3.setOpacity(80);
         this.addChild(this.butt3);
+
+        this.sound_butt = cc.Sprite.create( 'img/menu/sound.png' );
+        this.sound_butt.setPosition(cc.p(30,30));
+        this.sound_butt.setOpacity(80);
+        // this.setAnchorPoint(0.5,0.5);
+        this.sound_butt.setScaleX(0.08);
+        this.sound_butt.setScaleY(0.08);
+        this.addChild(this.sound_butt);
 	},
 
 	onMouseMoved: function(event){
@@ -37,6 +46,7 @@ var SelectLayer = cc.Layer.extend({
 		var b1 = this.butt1.getBoundingBoxToWorld();
 		var b2 = this.butt2.getBoundingBoxToWorld();
 		var b3 = this.butt3.getBoundingBoxToWorld();
+		var sb = this.sound_butt.getBoundingBoxToWorld();
 
 		if(cc.rectContainsPoint(b1,loc)){
 			this.butt1.setOpacity(1000);
@@ -56,6 +66,12 @@ var SelectLayer = cc.Layer.extend({
 			this.butt3.setOpacity(80);
 		}
 
+		if(cc.rectContainsPoint(sb,loc)){
+			this.sound_butt.setOpacity(1000);
+		}else{
+			this.sound_butt.setOpacity(80);
+		}
+
 
 		// console.log("X : "+loc.x+" Y : "+loc.y);
 	},
@@ -65,6 +81,7 @@ var SelectLayer = cc.Layer.extend({
 		var b1 = this.butt1.getBoundingBoxToWorld();
 		var b2 = this.butt2.getBoundingBoxToWorld();
 		var b3 = this.butt3.getBoundingBoxToWorld();
+		var sb = this.sound_butt.getBoundingBoxToWorld();
 
 		if(cc.rectContainsPoint(b1,loc)){
 			var director = cc.Director.getInstance();
@@ -79,6 +96,17 @@ var SelectLayer = cc.Layer.extend({
 		if(cc.rectContainsPoint(b3,loc)){
 			var director = cc.Director.getInstance();
         	director.replaceScene(cc.TransitionFade.create(1.5, new StartScene(2)));
+		}
+
+		if(cc.rectContainsPoint(sb,loc)){
+			if(this.isSound){
+				this.isSound = false;
+				this.sound_butt.initWithFile("img/menu/nsound.png");
+			}
+			else{
+				this.isSound = true;
+				this.sound_butt.initWithFile("img/menu/sound.png");
+			}
 		}
 	}
 });

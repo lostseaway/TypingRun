@@ -40,7 +40,9 @@ var g_resources = [
 	{src: "img/menu/selection.png"},
 	{src: "img/menu/butt_easy.png"},
 	{src: "img/menu/butt_med.png"},
-	{src: "img/menu/butt_hard.png"}
+	{src: "img/menu/butt_hard.png"},
+	{src: "img/menu/sound.png"},
+	{src: "img/menu/nsound.png"}
 
 	// {src: "img/stage1_floor.png"},
 ];
