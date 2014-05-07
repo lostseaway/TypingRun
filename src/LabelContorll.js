@@ -30,12 +30,7 @@ var LabelContorll = cc.Node.extend({
 	checkTypeIn: function(e){
 		if(e == this.word[this.wIndex]){
 			var text = this.passed.getString();
-			this.passed.setString(text+e);
-			// this.nonPass.setString(this.nonPass.getString().substr(1));
-			// console.log(this.nonPass.getBoundingBox().width);
-			// console.log();
-			// console.log(cc.rectGetMaxX(nonPassBox));
-			// this.nonPass.setPosition(cc.p(this.passed.getBoundingBox().width,0));
+			this.passed.setString( text+e );
 			this.wIndex++;
 			return true;
 		}
@@ -43,7 +38,7 @@ var LabelContorll = cc.Node.extend({
 			this.wIndex = 0;
 			this.nonPass.setString(this.word);
 			this.nonPass.setPosition( new cc.Point( 0, 0 ) );
-			this.passed.setString("");
+			this.passed.setString( "" );
 			return false;
 		}
 		
@@ -51,7 +46,7 @@ var LabelContorll = cc.Node.extend({
 
 	isComplet :function(){
 		// console.log("word length : "+(this.word.length)+" windex : "+this.wIndex);
-		if(this.word.length == this.wIndex)return true;
+		if( this.word.length == this.wIndex ) return true;
 		return false;
 	}
 });

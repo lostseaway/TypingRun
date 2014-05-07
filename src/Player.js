@@ -1,5 +1,5 @@
 var Player = cc.Sprite.extend({
-	ctor: function(floor,main){
+	ctor: function( floor , main ){
 		this._super();
 		// this.initWithFile('img/mainChar.png');
 		this.standAction  = this.createStandAction();
@@ -16,20 +16,20 @@ var Player = cc.Sprite.extend({
 		this.isAlive = true;
 		
 	},
-	update: function(dt){
+
+	update: function( dt ){
 		var box = this.getBoundingBoxToWorld();
 		var pos = this.getPosition();
 		
-		if(this.isHit){
+		if( this.isHit ){
 			var time = new Date() / 1000;
-			// console.log()
-			if(time - this.sHit >= 5){
+			if( time - this.sHit >= 5 ){
 				this.isHit = false;
 			}
 		}
 
 		//check died
-		if((box.x <-50 && box.y<-50)|| this.HP <=0 ){
+		if( ( box.x <-50 && box.y<-50 ) || this.HP <= 0 ){
 			cc.AudioEngine.end()
 			this.unscheduleUpdate();
 			this.floor.unscheduleUpdate();
@@ -37,38 +37,39 @@ var Player = cc.Sprite.extend({
 			this.isAlive = false;
 		}
 
-		if(!this.floor.checkOnFloor(box) || box.y<65){
+		if( !this.floor.checkOnFloor(box) || box.y < 65 ){
 			
-			if(this.floor.checkOnFloor(box)){
-				this.setPosition(cc.p(pos.x-this.floor.v,pos.y-this.g));
+			if( this.floor.checkOnFloor( box ) ){
+				this.setPosition( cc.p( pos.x-this.floor.v , pos.y-this.g ) );
 			}
 			else{
-				this.setPosition(cc.p(pos.x,pos.y-this.g));
+				this.setPosition( cc.p( pos.x , pos.y-this.g ) );
 			}
-			if(this.g!=5)this.g++;
+			if( this.g!=5 )this.g++;
 		}
 		else{
 			this.status = 0;
 		}
-		if(this.floor.checkHitObs(box) && !this.isHit){
+		if( this.floor.checkHitObs( box ) && !this.isHit ){
 			this.isHit = true;
 			this.sHit = new Date() / 1000;
-			this.attacked(10);
+			this.attacked( 10 );
 		}
 
-		if(this.floor.checkCollectCoin(box)){
-			this.main.scoring(1);
+		if( this.floor.checkCollectCoin( box ) ){
+			this.main.scoring( 1 );
 			if(this.main.isSound){
 				cc.AudioEngine.getInstance().playEffect( 'sound/coin.mp3' );
 			}
 		}
 		
 	},
+	
 	jump: function(){
-		console.log(this.status);
-		if(this.status == 0 || this.status == 1){
+		console.log( this.status );
+		if( this.status == 0 || this.status == 1 ){
 			var pos = this.getPosition();
-			this.setPosition(cc.p(pos.x,pos.y+150));
+			this.setPosition( cc.p( pos.x , pos.y+150 ) );
 			this.g = -15;
 			// this.status++;
 		}
@@ -76,8 +77,8 @@ var Player = cc.Sprite.extend({
 
 	createStandAction : function(){
 		var animation = new cc.Animation.create();
-		for (var i = 1 ; i<=10;i++){
-			animation.addSpriteFrameWithFile( 'img/mainChar/main_'+i+'.png');
+		for ( var i = 1 ; i <= 10; i++ ){
+			animation.addSpriteFrameWithFile( 'img/mainChar/main_' + i + '.png');
 		}
 
 		// console.log( animation.getDelayPerUnit() );
@@ -89,9 +90,9 @@ var Player = cc.Sprite.extend({
 		this.healthBar = healthBar;
 	},
 
-	attacked : function(damage){
+	attacked : function( damage ){
 		this.HP -= damage;
 		// console.log(this.HP/this.maxHP);
-		this.healthBar.setHP((this.HP/this.maxHP)*100);
+		this.healthBar.setHP( ( this.HP / this.maxHP ) * 100 );
 	}
 });
