@@ -128,7 +128,7 @@ var GameLayer = cc.LayerColor.extend({
         
 
         this.textLabel = new LabelContorll();
-        this.textLabel.setPosition(cc.p(300,400));
+        this.textLabel.setPosition(cc.p(350,400));
         this.addChild(this.textLabel);
 
         this.stage = new Stage();

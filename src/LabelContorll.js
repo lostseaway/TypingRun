@@ -6,7 +6,7 @@ var LabelContorll = cc.Node.extend({
         this.passed.setPosition( new cc.Point( 0, 0 ) );
         this.passed.setColor( cc.c3b( 200, 0, 0 ));
         this.passed.setAnchorPoint(cc.p(0,0));
-        this.addChild( this.passed, 1);
+        this.addChild( this.passed, 3);
         this.passed.setString("");
 	
 		this.nonPass = cc.LabelTTF.create( '0', 'Arial', this.fontSize );
@@ -31,11 +31,11 @@ var LabelContorll = cc.Node.extend({
 		if(e == this.word[this.wIndex]){
 			var text = this.passed.getString();
 			this.passed.setString(text+e);
-			this.nonPass.setString(this.nonPass.getString().substr(1));
+			// this.nonPass.setString(this.nonPass.getString().substr(1));
 			// console.log(this.nonPass.getBoundingBox().width);
 			// console.log();
 			// console.log(cc.rectGetMaxX(nonPassBox));
-			this.nonPass.setPosition(cc.p(this.passed.getBoundingBox().width,0));
+			// this.nonPass.setPosition(cc.p(this.passed.getBoundingBox().width,0));
 			this.wIndex++;
 			return true;
 		}
